@@ -33,3 +33,11 @@ def test_searchingDepartmentUsingLocationFilter(page):
     loginPage.login("admin@gmail.com", "Admin123!")
     dashboardPage.verifyTextAfterLogin()
     dashboardPage.searchingDepartmentUsingLocationFilter()
+
+def test_updateStatusOfDepartmentFromActiveToInactiveAndVerifyBySearch(page):
+    loginPage = LoginPage(page)
+    dashboardPage = DashboardPage(page)
+    loginPage.navigateToWebsite()
+    loginPage.login("admin@gmail.com", "Admin123!")
+    dashboardPage.verifyTextAfterLogin()
+    dashboardPage.updateStatusOfDepartmentFromActiveToInactiveAndVerifyBySearch()

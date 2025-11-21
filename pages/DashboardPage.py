@@ -32,6 +32,11 @@ class DashboardPage(BasePage):
     visibleNumberOfFilterApplied = "//span[contains(@class,'MuiBadge-anchorOriginTopRight')]"
     verifyLocationNameAfterSearchInDepartment = "(//div[contains(@data-field,'location')])[2]"
     pickDepartmentNameForFiltering = "(//div[contains(@data-field,'departmentName')])[5]"
+    pickDepartmentNameForStatus = "(//div[contains(@data-field,'departmentName')])[6]"
+    searchInputField = "//input[contains(@id,'search')]"
+    firstDepartmentNameAfterSearch = "(//div[contains(@data-field,'departmentName')])[2]"
+    clickDeactivateBtn = "//button[contains(text(),'Save')]/following-sibling::button[contains(text(),'De-Activate')]"
+    verifyStatusAfterUpdatingStatus = "(//div[contains(@data-field,'inactive')])[2]"
 
     def verifyTextAfterLogin(self):
         expect(self.page.locator(self.listText)).to_contain_text("List")
@@ -116,3 +121,14 @@ class DashboardPage(BasePage):
         expect(self.page.locator(self.visibleNumberOfFilterApplied)).to_contain_text("1")
         expect(self.page.locator(self.verifyLocationNameAfterSearchInDepartment)).to_contain_text(
             getLocationNameForFilter)
+
+    def updateStatusOfDepartmentFromActiveToInactiveAndVerifyBySearch(self):
+        getDepartmentNameForStatus = self.page.locator(self.pickDepartmentNameForStatus).inner_text()
+        self.fill(self.searchInputField,getDepartmentNameForStatus)
+        self.page.locator(self.searchInputField).press("Enter")
+        self.page.locator(self.firstDepartmentNameAfterSearch).dblclick()
+        self.click(self.clickDeactivateBtn)
+        self.verifyToastMessage("Department status updated successfully.")
+        self.fill(self.searchInputField,getDepartmentNameForStatus)
+        self.page.locator(self.searchInputField).press("Enter")
+        expect(self.page.locator(self.verifyStatusAfterUpdatingStatus)).to_contain_text("Inactive")
