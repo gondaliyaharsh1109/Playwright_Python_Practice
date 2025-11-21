@@ -37,6 +37,12 @@ class DashboardPage(BasePage):
     firstDepartmentNameAfterSearch = "(//div[contains(@data-field,'departmentName')])[2]"
     clickDeactivateBtn = "//button[contains(text(),'Save')]/following-sibling::button[contains(text(),'De-Activate')]"
     verifyStatusAfterUpdatingStatus = "(//div[contains(@data-field,'inactive')])[2]"
+    clickPositionTab = "//span[contains(text(),'Position')]"
+    clickEmployeeTab = "//span[contains(text(),'Employees')]"
+    clickLeaveTab = "//span[contains(text(),'Leave')]"
+    clickTaskTab = "//span[contains(text(),'Task')]"
+    clickHomeBtn = "//div[contains(@class,'MuiBox-root css-f4ggu8')]"
+    verifyTextAfterClickEachTab = "//div[contains(@class,'MuiBox-root css-axw7ok')]"
 
     def verifyTextAfterLogin(self):
         expect(self.page.locator(self.listText)).to_contain_text("List")
@@ -132,3 +138,15 @@ class DashboardPage(BasePage):
         self.fill(self.searchInputField,getDepartmentNameForStatus)
         self.page.locator(self.searchInputField).press("Enter")
         expect(self.page.locator(self.verifyStatusAfterUpdatingStatus)).to_contain_text("Inactive")
+
+    def redirectToDepartmentByClickingHomeBtn(self):
+        self.click(self.clickPositionTab)
+        expect(self.page.locator(self.verifyTextAfterClickEachTab)).to_contain_text("Position")
+        self.click(self.clickEmployeeTab)
+        expect(self.page.locator(self.verifyTextAfterClickEachTab)).to_contain_text("Employees")
+        self.click(self.clickLeaveTab)
+        expect(self.page.locator(self.verifyTextAfterClickEachTab)).to_contain_text("Leave")
+        self.click(self.clickTaskTab)
+        expect(self.page.locator(self.verifyTextAfterClickEachTab)).to_contain_text("Task")
+        self.click(self.clickHomeBtn)
+        expect(self.page.locator(self.verifyTextAfterClickEachTab)).to_contain_text("Departments")

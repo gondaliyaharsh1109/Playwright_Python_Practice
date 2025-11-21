@@ -41,3 +41,11 @@ def test_updateStatusOfDepartmentFromActiveToInactiveAndVerifyBySearch(page):
     loginPage.login("admin@gmail.com", "Admin123!")
     dashboardPage.verifyTextAfterLogin()
     dashboardPage.updateStatusOfDepartmentFromActiveToInactiveAndVerifyBySearch()
+
+def test_redirectToDepartmentByClickingHomeBtn(page):
+    loginPage = LoginPage(page)
+    dashboardPage = DashboardPage(page)
+    loginPage.navigateToWebsite()
+    loginPage.login("admin@gmail.com", "Admin123!")
+    dashboardPage.verifyTextAfterLogin()
+    dashboardPage.redirectToDepartmentByClickingHomeBtn()
