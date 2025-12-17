@@ -1,8 +1,10 @@
+import pytest
+
 from conftest import page
 from pages.DashboardPage import DashboardPage
 from pages.LoginPage import LoginPage
 
-
+# @pytest.mark.smoke
 def test_positiveLoginTest(page):
     loginPage = LoginPage(page)
     loginPage.navigateToWebsite()

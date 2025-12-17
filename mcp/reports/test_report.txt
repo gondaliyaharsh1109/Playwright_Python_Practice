@@ -1,0 +1,7 @@
+TEST SUITE RESULT
+
+test_valid_login - PASSED
+test_invalid_login - FAILED
+
+Failure Reason:
+TimeoutError: Element '#login-button' not found within 30 seconds

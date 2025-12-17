@@ -15,6 +15,15 @@ class BasePage:
     def click(self, locator):
         self.page.locator(locator).click()
 
+    def dblClick(self,locator):
+        self.page.locator(locator).dblclick()
+
+    def click_by_text(self,text):
+        self.page.get_by_text(text).click()
+
+    def dblclick_by_text(self,text):
+        self.page.get_by_text(text).dblclick()
+
     def fill(self, locator, text):
         self.page.locator(locator).fill(text)
 
@@ -26,3 +35,12 @@ class BasePage:
 
     def verifyToastMessage(self, text):
         expect(self.page.locator(self.toastMessage)).to_contain_text(text)
+
+    def verify_visible(self,locator):
+        expect(self.page.locator(locator)).to_be_visible()
+
+    def verify_text(self,locator,text):
+        expect(self.page.locator(locator)).to_contain_text(text)
+
+    def press_key(self,locator,key):
+        self.page.locator(locator).press(key)
