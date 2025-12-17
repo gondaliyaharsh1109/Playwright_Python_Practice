@@ -4,6 +4,7 @@ from pages.BasePage import BasePage
 
 
 class LoginPage(BasePage):
+
     email_input = "//input[contains(@name,'email')]"
     password_input = "//input[contains(@type,'password')]"
     login_btn = "//button[contains(text(),'Login')]"
@@ -18,6 +19,6 @@ class LoginPage(BasePage):
     def blankFieldValidation(self):
         self.click(self.login_btn)
         self.page.locator(self.blankEmailValueRequiredText).is_visible()
-        expect(self.page.locator(self.blankEmailValueRequiredText)).to_contain_text("value is required")
+        self.verify_text(self.blankEmailValueRequiredText,"value is required")
         self.page.locator(self.blankPasswordValueRequiredText).is_visible()
-        expect(self.page.locator(self.blankPasswordValueRequiredText)).to_contain_text("value is required")
+        self.verify_text(self.blankPasswordValueRequiredText, "value is required")

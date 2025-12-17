@@ -4,6 +4,7 @@ from pages.BasePage import BasePage
 
 
 class DashboardPage(BasePage):
+
     listText = "//p[contains(@class,'MuiTypography-root')]"
     clickNewBtn = "//button[contains(text(),'New')]"
     createDepartmentText = "//p[contains(@class,'MuiTypography-root MuiTypography-body1 css')]"
