@@ -10,9 +10,3 @@ def page(playwright:Playwright):
     yield page
     context.close()
     browser.close()
-
-def pytest_configure(config):
-    if hasattr(config, "_metadata"):
-        config._metadata["Project Name"] = "Playwright Automation"
-        config._metadata["Tester"] = "Harsh"
-        config._metadata['Environment'] = 'QA'
