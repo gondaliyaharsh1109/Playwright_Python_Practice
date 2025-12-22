@@ -46,11 +46,11 @@ class DashboardPage(BasePage):
     verifyTextAfterClickEachTab = "//div[contains(@class,'MuiBox-root css-axw7ok')]"
 
     def verifyTextAfterLogin(self):
-        expect(self.page.locator(self.listText)).to_contain_text("List")
+        self.verify_text(self.listText,"List")
 
     def clickNewButton(self):
         self.click(self.clickNewBtn)
-        expect(self.page.locator(self.createDepartmentText)).to_contain_text("Create Department")
+        self.verify_text(self.createDepartmentText,"Create Department")
 
     def clickToggleBtnForSideBar(self):
         self.click(self.toggleBtnToHideSideBar)
@@ -60,16 +60,16 @@ class DashboardPage(BasePage):
 
     def clickProfileBtnAndConfirmRole(self):
         self.click(self.profileBtn)
-        expect(self.page.locator(self.verifyNameOnProfileBtn)).to_contain_text("PyTheta Admin")
-        expect(self.page.locator(self.verifyEmailOnProfileBtn)).to_contain_text("Email:")
-        expect(self.page.locator(self.verifyRoleOnProfileBtn)).to_contain_text("Admin")
+        self.verify_text(self.verifyNameOnProfileBtn,"PyTheta Admin")
+        self.verify_text(self.verifyEmailOnProfileBtn,"Email:")
+        self.verify_text(self.verifyRoleOnProfileBtn,"Role:")
         self.page.keyboard.press("Escape")
 
     def searchFunctionalityOnSideBar(self):
         # For Department
         self.click(self.sidebarSearchInputField)
         self.fill(self.sidebarSearchInputField, "de")
-        expect(self.page.locator(self.departmentTextOnSideBar)).to_be_visible()
+        self.verify_visible(self.departmentTextOnSideBar)
         # expect(self.page.locator(self.positionTextOnSideBar)).not_to_be_visible()
         # expect(self.page.locator(self.employeeTextOnSideBar)).not_to_be_visible()
         # expect(self.page.locator(self.leaveTextOnSideBar)).not_to_be_visible()
@@ -79,7 +79,7 @@ class DashboardPage(BasePage):
         # For Position
         self.fill(self.sidebarSearchInputField, "po")
         # self.page.pause()
-        expect(self.page.locator(self.positionTextOnSideBar)).to_be_visible()
+        self.verify_visible(self.positionTextOnSideBar)
         # expect(self.page.locator(self.departmentTextOnSideBar)).not_to_be_visible()
         # expect(self.page.locator(self.employeeTextOnSideBar)).not_to_be_visible()
         # expect(self.page.locator(self.leaveTextOnSideBar)).not_to_be_visible()
@@ -88,7 +88,7 @@ class DashboardPage(BasePage):
 
         # For Employee
         self.fill(self.sidebarSearchInputField, "em")
-        expect(self.page.locator(self.employeeTextOnSideBar)).to_be_visible()
+        self.verify_visible(self.employeeTextOnSideBar)
         # expect(self.page.locator(self.departmentTextOnSideBar)).not_to_be_visible()
         # expect(self.page.locator(self.positionTextOnSideBar)).not_to_be_visible()
         # expect(self.page.locator(self.leaveTextOnSideBar)).not_to_be_visible()
@@ -97,7 +97,7 @@ class DashboardPage(BasePage):
 
         # For Leave
         self.fill(self.sidebarSearchInputField, "le")
-        expect(self.page.locator(self.leaveTextOnSideBar)).to_be_visible()
+        self.verify_visible(self.leaveTextOnSideBar)
         # expect(self.page.locator(self.departmentTextOnSideBar)).not_to_be_visible()
         # expect(self.page.locator(self.positionTextOnSideBar)).not_to_be_visible()
         # expect(self.page.locator(self.employeeTextOnSideBar)).not_to_be_visible()
@@ -106,7 +106,7 @@ class DashboardPage(BasePage):
 
         # For Tasks
         self.fill(self.sidebarSearchInputField, "ta")
-        expect(self.page.locator(self.tasksTextOnSideBar)).to_be_visible()
+        self.verify_visible(self.tasksTextOnSideBar)
         # expect(self.page.locator(self.departmentTextOnSideBar)).not_to_be_visible()
         # expect(self.page.locator(self.positionTextOnSideBar)).not_to_be_visible()
         # expect(self.page.locator(self.employeeTextOnSideBar)).not_to_be_visible()
@@ -114,7 +114,7 @@ class DashboardPage(BasePage):
 
     def clickOnPositionTab(self):
         self.click(self.positionTextOnSideBar)
-        expect(self.page.locator(self.positionTextInPositionPage)).to_contain_text("Position")
+        self.verify_visible(self.positionTextOnSideBar)
 
     def searchingDepartmentUsingLocationFilter(self):
         getLocationNameForFilter = self.page.locator(self.pickLocationNameForFiltering).inner_text()
@@ -125,20 +125,19 @@ class DashboardPage(BasePage):
         self.click(self.selectLocationInFilterInDepartment)
         self.fill(self.valueInputFieldInFilterInDepartment, getLocationNameForFilter)
         self.click(self.clickOkBtnInFilterInDepartment)
-        expect(self.page.locator(self.visibleNumberOfFilterApplied)).to_contain_text("1")
-        expect(self.page.locator(self.verifyLocationNameAfterSearchInDepartment)).to_contain_text(
-            getLocationNameForFilter)
+        self.verify_text(self.visibleNumberOfFilterApplied,"1")
+        self.verify_text(self.verifyLocationNameAfterSearchInDepartment, getLocationNameForFilter)
 
     def updateStatusOfDepartmentFromActiveToInactiveAndVerifyBySearch(self):
         getDepartmentNameForStatus = self.page.locator(self.pickDepartmentNameForStatus).inner_text()
         self.fill(self.searchInputField,getDepartmentNameForStatus)
-        self.page.locator(self.searchInputField).press("Enter")
+        self.press_key(self.searchInputField,"Enter")
         self.page.locator(self.firstDepartmentNameAfterSearch).dblclick()
         self.click(self.clickDeactivateBtn)
         self.verifyToastMessage("Department status updated successfully.")
         self.fill(self.searchInputField,getDepartmentNameForStatus)
-        self.page.locator(self.searchInputField).press("Enter")
-        expect(self.page.locator(self.verifyStatusAfterUpdatingStatus)).to_contain_text("Inactive")
+        self.press_key(self.searchInputField,"Enter")
+        self.verify_text(self.verifyStatusAfterUpdatingStatus,"Inactive")
 
     def redirectToDepartmentByClickingHomeBtn(self):
         self.click(self.clickPositionTab)

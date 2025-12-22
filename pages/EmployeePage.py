@@ -102,15 +102,7 @@ class EmployeePage(BasePage):
         self.press_key(self.searchInputField, "Enter")
         self.verify_visible(self.addedEmployeeName)
 
-    def addEmployee(
-            self,
-            cityName: str,
-            stateName: str,
-            departmentName: str,
-            positionName: str,
-            userTypeOption: str,
-            genderOption: str
-    ):
+    def addEmployee(self,cityName: str,stateName: str,departmentName: str,positionName: str,userTypeOption: str,genderOption: str):
         data = self.generate_fake_employee_data()
 
         self.navigate_to_add_employee()
